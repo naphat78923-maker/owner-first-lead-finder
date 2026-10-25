@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "owner-first-lead-finder"
+version = "0.1.0"
+description = "Find small-business buyers (cafés, bakeries, grocers) and the owners who decide, with a human approving every suggestion."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = ["anthropic>=2.3"]
+
+[project.scripts]
+leadfinder = "leadfinder.cli:main"
+
+[tool.setuptools]
+packages = ["leadfinder"]

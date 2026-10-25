@@ -1,0 +1,68 @@
+# Copy to config.toml and describe your own business. Keys go in .env, never here.
+# This example is a fictional supplier of plant-based butter selling to cafés and bakeries.
+
+data_dir = "data"
+
+[business]
+name = "Example Plant Butter Co."
+product = "plant-based butter for baking and cooking"
+pitch = "A dairy-free butter that laminates like dairy butter, sold in 1 kg and 5 kg blocks to food businesses."
+# The kinds of businesses that buy from you. The AI uses this to judge fit.
+ideal_customers = [
+  "independent bakeries and patisseries",
+  "plant-based and vegan cafés and restaurants",
+  "dessert and croissant shops",
+  "gourmet and health-food grocers",
+]
+# Never suggest these.
+exclude = [
+  "businesses that make or sell butter or spreads themselves (competitors)",
+  "hotels and large chains' individual branches",
+  "businesses the page says have closed",
+]
+
+[search]
+country = "TH"            # two-letter country code, used by the free search provider
+phone_country_code = "66" # so +66 81... and 081... count as the same phone
+searches_per_run = 2      # web searches per weekly run
+pages_per_search = 2      # guides or articles read per search
+max_proposals = 5         # new leads suggested per run, at most
+recent_days = 365         # only search results from the past year (old guides list closed shops)
+open_evidence_months = 18 # a source this recent counts as proof a shop is still open
+
+# Each query runs once per place when it contains {place}. Write them like a customer would search.
+# They rotate week by week, so a long list means fresh guides every week.
+queries = [
+  "new vegan bakery {place}",
+  "best patisserie {place} guide",
+  "plant-based cafe {place} opening",
+  "croissant bakery {place} new",
+  "gourmet grocery store {place} guide",
+  "ร้านเบเกอรี่ วีแกน {place} เปิดใหม่",
+]
+
+# Words that show a page is about this place, in any language. A result must contain one.
+[[search.places]]
+name = "Bangkok"
+match = ["bangkok", "bkk", "กรุงเทพ", "thailand"]
+
+[[search.places]]
+name = "Chiang Mai"
+match = ["chiang mai", "chiangmai", "เชียงใหม่"]
+
+[owners]
+per_run = 10
+# Optional: a search link to your country's official company registry, shown with each owner
+# suggestion so you can check it by hand. {name} is replaced. Registries are never scraped.
+# Example (Thailand, Department of Business Development):
+# registry_url = "https://datawarehouse.dbd.go.th/juristic/searchInfo?keyword={name}"
+registry_url = ""
+
+[ai]
+model = "claude-opus-5-5"
+effort = "medium"   # low | medium | high
+fit_cutoff = 0.5    # leads scoring below this (0 to 1) are held back
+
+[sources]
+order = ["firecrawl", "tinyfish"]  # first one with a key is used first; the next is the backup
+budget = 12                        # paid units per run (search = 2, page = 1)

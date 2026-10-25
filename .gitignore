@@ -1,0 +1,14 @@
+# Your secrets, settings and data stay on your machine.
+.env
+config.toml
+data/
+*.db
+*.csv
+!examples/*.csv
+
+__pycache__/
+*.egg-info/
+.venv/
+dist/
+build/
+.DS_Store
